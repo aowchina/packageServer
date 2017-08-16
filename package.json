@@ -1,0 +1,19 @@
+{
+  "name": "package_server",
+  "version": "1.0.0",
+  "description": "auto package app server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "eric zhang",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "lodash": "^4.17.4",
+    "log4js": "^2.3.3",
+    "redis": "^2.8.0"
+  }
+}

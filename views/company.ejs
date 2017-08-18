@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <a href="/company/create">创建企业</a>
+
+    <%if(companys.length) {%> 
+        <ul>
+            <%companys.forEach(function(com){%>
+                <li><pre>企业名称：<%=com.companyName%></pre><a href="/company/detail/<%=com.companyId%>" >查看</a> </li>
+           <%})%>
+        </ul>
+    <%}%>
+</body>
+</html>

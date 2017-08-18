@@ -1,6 +1,7 @@
 var conf = {
-    username:"zhangqi",
+    username:"admin",
     password:"daohao4ma",
-    token:"123456"
+    nickname:"admin",
+    tokenKeepTime:604800//一周 秒
 };
 module.exports = conf;

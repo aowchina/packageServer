@@ -1,28 +1,38 @@
-var query = require("../data/mysqlHelper");
-var util = require("util");
-
-var SQL = {
-    CREATE:"create table if not exists \
-        company(\
-        company_id varchar(64) NOT NULL PRIMARY KEY\
-        ,compant_name text\
-        )charset=utf8",
-    INSERT:"insert into company(company_id,compant_name) values(?,?)",
-    DELETE:"delete from company where company_id='%s'"
-};
+var company = require("../data/company");
+var error = require("./error");
+var async = require("async");
 
 exports.addCompany = function(companyId,companyName,callback){
-    query(SQL.INSERT,[companyId,companyName],(error)=>{
-        callback(error);
-    });
+    async.waterfall(
+        [
+            (_cb)=>{
+                company.existsCompany(companyId,_cb);
+            },
+            (_result,_cb)=>{
+                if(_result){
+                    _cb(error(error.code.CompanyDuplicate));
+                }else{
+                    _cb(null);
+                }
+            },
+            (_cb)=>{
+                company.addCompany(companyId,companyName,_cb);
+            }
+        ],
+        (err)=>{
+            callback(err);
+        }
+    );
 };
 
-exports.deleteCompany = function(compantId,callback){
-    query(util.format(SQL.DELETE,compantId),callback);
+exports.existsCompany = function(companyId,callback){
+    company.existsCompany(companyId,callback);
 };
 
-exports.initCompany = function (callback){
-    query(SQL.CREATE,(error)=>{
-        callback(error);
-    });
+exports.getCompanys = function(username,callback){
+    company.getCompanys(username,callback);
+};
+
+exports.getCompany = function(companyId,callback){
+    company.getCompany(companyId,callback);
 };

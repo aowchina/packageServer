@@ -1,6 +1,4 @@
-var request = require("request");
 var util = require("util");
-var _ = require("lodash");
 var jenkinsapi = require("jenkins-api");
 var logger = require("../logger").logger;
 var error = require("../model/error");
@@ -38,7 +36,7 @@ jenkins.prototype.buildInfo = function(job,queueId,callback){
 };
 
 jenkins.prototype.stopBuild = function(job,queueId,callback){
-    this.jenkinsapi.stop_build(job,queueId,(err,data)=>{
+    this.jenkinsapi.stop_build(job,queueId-2,(err,data)=>{
         if(err){
             logger.error(err);
             callback(error(error.code.JenkinsError,err));

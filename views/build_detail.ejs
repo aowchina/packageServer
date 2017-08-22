@@ -13,9 +13,14 @@
     <div>build号:<%=build.buildVersion%></div>
     <div>bundleId:<%=build.buildId%></div>
     <div>任务Id:<%=build.taskId%></div>
-    <div>genkins队列Id:<%=build.jenkinsQueueId%></div>
+    <div>genkins队列Id:<%=build.queueId%></div>
     <div>打包状态:<%=build.status%></div>
     <div>打包开始时间:<%=build.startTimestamp%></div>
     <div>公司Id:<%=build.companyId%></div>
+
+    <% if(build.status=="waiting"||build.status=="building") {%>
+        <a href="/build/stop/<%=build.appType%>/<%-build.taskId%>">停止打包</a>
+    <% }%>
+
 </body>
 </html>

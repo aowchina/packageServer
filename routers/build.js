@@ -63,4 +63,17 @@ router.get("/build/detail/:type/:taskId",(req,res)=>{
     });
 });
 
+router.get("/build/stop/:type/:taskId",(req,res)=>{
+    var taskId = req.params.taskId;
+    var type = req.params.type;
+    build.stopBuild(taskId,(err)=>{
+        if(err){
+            res.redirect("/error/"+err.errorInfo);
+        }else{
+            var path = util.format("/build/detail/%s/%s",type,taskId);
+            res.redirect(path);
+        }
+    });
+});
+
 module.exports = router;

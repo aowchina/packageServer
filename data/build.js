@@ -1,9 +1,10 @@
 var query = require("../data/mysqlHelper");
 var util = require("util");
 var databaseCheck = require("./databaseCheck");
-// var error = require("../model/error");
+var error = require("../model/error");
 var jenkinsConfig = require("../config/jenkins");
 var uuid = require("../model/uuid");
+var async = require("async");
 
 
 var jenkinsHelper = new (require("./jenkinsHelper"))(jenkinsConfig.username,jenkinsConfig.token,jenkinsConfig.password,jenkinsConfig.host,jenkinsConfig.port);
@@ -21,6 +22,7 @@ var BuildStatus = {
     Building:"building",
     Success:"success",
     Error:"error",
+    Cancel:"cancel"
 };
 
 function BuildConfig (){
@@ -41,12 +43,17 @@ function Build(){
     this.buildConfig = "";
     this.bundleId = "";
     this.status = "";
-    this.jenkinsQueueId = 0;
+    this.queueId = 0;
     this.startTimestamp = 0;
 }
 
 var Job_iOS = "im-ios";
 var Job_Android = "im-android";
+
+var JobMapping = {
+    "ios":Job_iOS,
+    "android":Job_Android
+};
 
 var SQL = {
     CREATE:" create table if not exists \
@@ -61,11 +68,11 @@ var SQL = {
     bundleId varchar(64) not null,\
     buildConfig varchar(10000) not null,\
     status varchar(64) ,\
-    jenkinsQueueId int default 0,\
+    queueId int default 0,\
     startTimestamp int default 0 \
     )charset=utf8",
-    INSERT:"insert into build(taskId,appType,appName,companyId,version,buildVersion,bundleId,buildConfig,status,jenkinsQueueId,startTimestamp) values (?,?,?,?,?,?,?,?,?,?,?)",
-    UPDATE_QUEUE_ID:"update build set jenkinsQueueId=%d,status='%s' where taskId='%s' ",
+    INSERT:"insert into build(taskId,appType,appName,companyId,version,buildVersion,bundleId,buildConfig,status,queueId,startTimestamp) values (?,?,?,?,?,?,?,?,?,?,?)",
+    UPDATE_QUEUE_ID:"update build set queueId=%d,status='%s' where taskId='%s' ",
     SELECT:"select * from build where companyId='%s' and appType='%s' and status in('%s','%s')",
     SELECT_TASKID:"select * from build where taskId='%s'",
     SELECT_ALL_TYPE:"select * from build where companyId='%s' and appType='%s' order by id desc",
@@ -84,7 +91,7 @@ exports.buildApp = function(companyId,appType,buildConfig,callback){
         if(err){
             callback(err);
         }else{
-            jenkinsHelper.build(Job_iOS,{taskId:taskId},(err,result)=>{
+            jenkinsHelper.build(JobMapping[appType],{taskId:taskId},(err,result)=>{
                 if(err){
                     updateQueueIdAndStatus(taskId,0,BuildStatus.Error,callback);
                 }else{
@@ -166,7 +173,7 @@ exports.lastBuild = lastBuild;
 
 
 function getBuildInfo(appType,queueId,callback){
-    jenkinsHelper.buildInfo(Job_iOS,queueId,callback);
+    jenkinsHelper.buildInfo(JobMapping[appType],queueId,callback);
 }
 
 exports.getBuildInfo = getBuildInfo;
@@ -174,7 +181,7 @@ exports.getBuildInfo = getBuildInfo;
 /**
  * 获取build
 */
-exports.getBuildWithTaskId = function(taskId,callback){
+function getBuildWithTaskId(taskId,callback){
     var sql = util.format(SQL.SELECT_TASKID,taskId);
     query(sql,databaseCheck((err,result)=>{
         if(err){
@@ -187,8 +194,9 @@ exports.getBuildWithTaskId = function(taskId,callback){
             }
         }
     }));
-};
+}
 
+exports.getBuildWithTaskId = getBuildWithTaskId;
 /**
  * 获取公司所有build的记录
 */
@@ -200,8 +208,30 @@ exports.getAllBuilds = function(companyId,appType,callback) {
 /**
  * 取消打包
 */
-exports.stopBuild = function(companyId,appType,callback){
-
+exports.stopBuild = function(taskId,callback){
+    var _buildData = null;
+    async.waterfall(
+        [
+            (_cb)=>{
+                getBuildWithTaskId(taskId,_cb);
+            },
+            (_build,_cb)=>{
+                if(_build){
+                    _buildData = _build;
+                    jenkinsHelper.stopBuild(JobMapping[_build.appType],_build.queueId,(err=>{
+                        _cb(err);
+                    }));
+                }else{
+                    _cb(error(error.code.BuildingNotExists));
+                }
+            },
+            (_cb)=>{
+                updateQueueIdAndStatus(_buildData.taskId,_buildData.queueId,BuildStatus.Cancel,_cb);
+            }
+        ],
+        callback
+    );
+    
 };
 
 exports.initBuild = function(callback) {

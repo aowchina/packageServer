@@ -42,3 +42,7 @@ exports.getBuildHistory = function(companyId,appType,callback){
 exports.getBuildWithTaskId = function(taskId,callback){
     build.getBuildWithTaskId(taskId,callback);
 };
+
+exports.stopBuild = function (taskId,callback){
+    build.stopBuild(taskId,callback);
+};

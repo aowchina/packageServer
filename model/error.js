@@ -10,7 +10,8 @@ var  ErrorCode ={
     CompanyDuplicate:1006,
     ParamError:1007,
     JenkinsError:1008,
-    BuildingExists:1009
+    BuildingExists:1009,
+    BuildingNotExists:1010
 }; 
 setError(ErrorCode.PasswordWrong,"密码错误");
 setError(ErrorCode.NotAddmin,"请使用admin账户");
@@ -22,6 +23,7 @@ setError(ErrorCode.CompanyDuplicate,"企业已存在");
 setError(ErrorCode.ParamError,"参数错误");
 setError(ErrorCode.JenkinsError,"jenkins错误");
 setError(ErrorCode.BuildingExists,"已经存在正在打包的进程");
+setError(ErrorCode.BuildingNotExists,"编译任务不存在");
 
 function setError(code,errorInfo){
     errorMap[code] = errorInfo;

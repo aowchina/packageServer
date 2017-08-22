@@ -14,7 +14,7 @@ config.bundleId = "com.tongren.im";
 async.waterfall(
     [
         (_cb)=>{
-            build.build("1231",buildDB.appType.iOS,config,_cb);
+            build.build("1",buildDB.appType.iOS,config,_cb);
         },
         (_cb)=>{
             build.getBuildHistory("1",buildDB.appType.iOS,_cb);

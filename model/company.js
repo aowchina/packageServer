@@ -36,3 +36,4 @@ exports.getCompanys = function(username,callback){
 exports.getCompany = function(companyId,callback){
     company.getCompany(companyId,callback);
 };
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p2>公司:<%=company.companyName%>  iOS打包</p2>
+    <form name="package" method="post" action="/build/ios/<%=company.companyId%>"> 
+        app名称:<input type="appName"  name="appName"/> </br>
+        app ID:<input type="bundleId" name="bundleId"> </br>
+        app版本号:<input type="version" name="version"> </br>
+        app build号:<input type="buildVersion" name="buildVersion"> </br>
+        <input type="submit" value="开始打包"> 
+    </form>
+</body>
+</html>

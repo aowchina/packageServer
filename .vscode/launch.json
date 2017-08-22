@@ -9,7 +9,8 @@
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/app.js"
-            // "program": "${workspaceRoot}/initData/initmysql.js"
+            // "program": "${workspaceRoot}/initData/initmysql.js",
+            // "program": "${workspaceRoot}/tests/build.js"
         }
     ]
 }

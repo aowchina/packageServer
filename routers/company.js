@@ -1,6 +1,7 @@
 
 var router = require("express").Router();
 var company = require("../model/company");
+var build = require("./build");
 
 //查看公司列表
 router.get("/company",(req,res)=>{

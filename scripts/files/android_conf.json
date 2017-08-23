@@ -1,0 +1,18 @@
+{
+    "app_name":"伙伴畅聊",
+    "login_type":1,
+    "company_id":"",
+    "jpush_appkey":"f1cf0bb6f3e201a929f4bd20",
+    "jpush_channel":"tongren",
+    "amap_key":"9246654fb95055ffdb7f027b49f89db5",
+    "wechat_app_id":"wx8d0dad770ebaf409",
+    "register_support":0,
+    "change_pw_support":0,
+    "modify_user_info_support":0,
+    "cloud_table_login_support":0,
+    "about_url":"https://im.tongren.com/license.html",
+    "itunes_url":"http://www.baidu.com",
+    "itunes_score_support":0,
+    "copyright":"©2016-2017 huobanim.com All Rights Reserved",
+    "version_update_info_url":"https://im.tongren.com/version/feature.html"
+}

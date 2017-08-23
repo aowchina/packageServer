@@ -15,7 +15,8 @@
     <div>任务Id:<%=build.taskId%></div>
     <div>genkins队列Id:<%=build.queueId%></div>
     <div>打包状态:<%=build.status%></div>
-    <div>打包开始时间:<%=build.startTimestamp%></div>
+    <% var startDate = new Date(build.startTimestamp*1000).toLocaleString();%>
+    <div>打包开始时间:<%=startDate%></div>
     <div>公司Id:<%=build.companyId%></div>
 
     <% if(build.status=="waiting"||build.status=="building") {%>

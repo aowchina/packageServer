@@ -7,6 +7,7 @@ var company = require("../model/company");
 router.get("/build/form/:type/:companyId",(req,res)=>{
     var type = req.params.type;
     var companyId = req.params.companyId;
+    var _company = null;
     aynsc.waterfall(
         [
             (_cb)=>{
@@ -14,13 +15,17 @@ router.get("/build/form/:type/:companyId",(req,res)=>{
             },
             (_cb)=>{
                 company.getCompany(companyId,_cb);
+            },
+            (_data,_cb)=>{
+                _company = _data;
+                build.lastBuild(companyId,type,_cb);
             }
         ],
-        (err,com)=>{
+        (err,_lastBuild)=>{
             if(err){
                 res.redirect("/error/"+err.errorInfo);
             }else{
-                res.render("build_"+type+".ejs",{company:com});
+                res.render("build_"+type+".ejs",{company:_company,lastBuild:_lastBuild?_lastBuild:{}});
             }
         }
     );

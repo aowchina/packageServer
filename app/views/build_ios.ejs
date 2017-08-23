@@ -8,12 +8,15 @@
 </head>
 <body>
     <p2>公司:<%=company.companyName%>  iOS打包</p2>
+    <%{%>
+    <% var appName = lastBuild.appName||"";var bundleId = lastBuild.bundleId||"";var version = lastBuild.version||"";var buildVersion = lastBuild.buildVersion||""; %>
     <form name="package" method="post" action="/build/ios/<%=company.companyId%>"> 
-        app名称:<input type="appName"  name="appName"/> </br>
-        app ID:<input type="bundleId" name="bundleId"> </br>
-        app版本号:<input type="version" name="version"> </br>
-        app build号:<input type="buildVersion" name="buildVersion"> </br>
+        app名称:<input type="appName"  name="appName" value="<%=appName%>"/> </br>
+        app ID:<input type="bundleId" name="bundleId" value="<%=bundleId%>"/> </br>
+        app版本号:<input type="version" name="version" value="<%=version%>"/> </br>
+        app build号:<input type="buildVersion" name="buildVersion" value="<%=buildVersion%>"/> </br>
         <input type="submit" value="开始打包"> 
     </form>
+    <%}%>
 </body>
 </html>

@@ -8,7 +8,7 @@ var plist = require("plist");
 function modify(buildInfo,callback){
     var buildConfig = JSON.parse(buildInfo.buildConfig);
     var scheme = buildConfig.scheme;
-    var workspace = __dirname+"/files/";
+    var workspace = global.WORKSPACE;
     var imConf = conf[scheme];
     async.waterfall(
         [

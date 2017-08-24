@@ -1,6 +1,5 @@
 var fs = require("fs");
 var _ = require("lodash");
-// var process = require("process");
 function modify(buildInfo,fpath,callback){
     try {
         var conf = JSON.parse(fs.readFileSync(fpath, "utf8"));

@@ -9,13 +9,21 @@ var modify_android = require("./modify_android");
 
 program.version("1.0.0")
     .option("-t --taskId [type]","task id for build")
+    .option("-w --workspace [type]","workspace for job")
     .parse(process.argv);
     
 var taskId = program.taskId;
-taskId = "dbf015f088a711e787888133dcc0fc84";
+// taskId = "dbf015f088a711e787888133dcc0fc84";
 if(!taskId){
     errorHandler("taskId can not be null");
 }
+
+if(!program.workspace){
+    errorHandler("workspace for job be not be null");
+}
+
+global.WORKSPACE = program.workspace;
+
 logger.debug("taskId =",taskId);
 
 var funcMapping = {

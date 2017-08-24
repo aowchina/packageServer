@@ -8,20 +8,21 @@ var path = require("path");
 var lineReader = require("line-reader");
 
 function modify(buildInfo, callback) {
+    var workspace = global.WORKSPACE;
     async.waterfall(
         [
             (_cb) => {
-                modify_common(buildInfo, conf.androidConfigPath, _cb);
+                modify_common(buildInfo, path.join(workspace,conf.androidConfigPath), _cb);
             },
             (_cb) => {
-                modifyGradle(buildInfo, conf.androidGradlePaty, _cb);
+                modifyGradle(buildInfo, path.join(workspace,conf.androidGradlePaty), _cb);
             }
         ],
         callback
     );
 }
 
-function modifyGradle(buildInfo, filepath, callback) {
+function modifyGradle(buildInfo, fpath, callback) {
     try {
         var buildConfig = JSON.parse(buildInfo.buildConfig);
         var modifyHash = _.cloneDeep(buildConfig);
@@ -47,7 +48,6 @@ function modifyGradle(buildInfo, filepath, callback) {
             str += (modifyLine+ "\n");
         };
 
-        var fpath = path.join(__dirname, filepath);
         lineReader.eachLine(fpath, function(line, last, cb) {
             modifyLine(line);
             if(last){

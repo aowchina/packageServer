@@ -1,11 +1,8 @@
 var fs = require("fs");
-var path = require("path");
 var _ = require("lodash");
 // var process = require("process");
-function modify(buildInfo,filepath,callback){
+function modify(buildInfo,fpath,callback){
     try {
-        var dir = __dirname;
-        var fpath = path.join(dir,filepath);
         var conf = JSON.parse(fs.readFileSync(fpath, "utf8"));
         conf.company_id = buildInfo.companyId;
         var buildConfig = JSON.parse(buildInfo.buildConfig);

@@ -10,7 +10,7 @@
     <p2>公司:<%=company.companyName%>  iOS打包</p2>
     <%{%>
     <% var buildConfig = lastBuild.buildConfig?JSON.parse(lastBuild.buildConfig):{}%>
-    <% var appName = lastBuild.appName||"";var bundleId = lastBuild.bundleId||"";var version = lastBuild.version||"";var buildVersion = lastBuild.buildVersion||""; %>
+    <% var appName = lastBuild.appName||"伙伴畅聊";var bundleId = lastBuild.bundleId||"com.tongren.im.Test";var version = lastBuild.version||"";var buildVersion = lastBuild.buildVersion||""; %>
     <% var loginType = buildConfig.loginType||0; %>
     <% var jpushAppkey=buildConfig.jpushAppkey||"f1cf0bb6f3e201a929f4bd20"; %>
     <% var jpushChannel = buildConfig.jpushChannel||"tongren"; %>
@@ -28,6 +28,7 @@
     <% var branch = buildConfig.branch||"develop" %>
     <% var scheme = buildConfig.scheme||"im" %>
     <% var exportType = buildConfig.exportType||"ad-hoc" %>
+    <% var shareGroupBundleId = buildConfig.shareGroupBundleId||"group.tongren.com.IMShareExtension" %>
 
     <form name="package" method="post" action="/build/ios/<%=company.companyId%>"> 
         <!--app名称-->
@@ -35,7 +36,7 @@
         app ID:<input type="text" name="bundleId" value="<%=bundleId%>"/> </br>
         app版本号:<input type="text" name="version" value="<%=version%>"/> </br>
         app build号:<input type="text" name="buildVersion" value="<%=buildVersion%>"/> </br>
-
+        share App ID:<input type="text" name="shareGroupBundleId" value="<%=shareGroupBundleId%>"/> </br>
 
         代码git分支:
         <%var branchDevelop = branch=="develop"?"checked":"";%>

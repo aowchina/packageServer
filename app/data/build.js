@@ -91,14 +91,19 @@ exports.buildApp = function(companyId,appType,buildConfig,callback){
         if(err){
             callback(err);
         }else{
-            var params = buildWithParams(appType,buildConfig);
-            jenkinsHelper.build(JobMapping[appType],params,(err,result)=>{
+            buildWithParams(appType,taskId,buildConfig,(err,params)=>{
                 if(err){
-                    updateQueueIdAndStatus(taskId,0,BuildStatus.Error,callback);
-                }else{
-                    updateQueueIdAndStatus(taskId,result.queueId,BuildStatus.Waiting,callback);
+                    return callback(err);
                 }
+                jenkinsHelper.build(JobMapping[appType],params,(err,result)=>{
+                    if(err){
+                        updateQueueIdAndStatus(taskId,0,BuildStatus.Error,callback);
+                    }else{
+                        updateQueueIdAndStatus(taskId,result.queueId,BuildStatus.Waiting,callback);
+                    }
+                });
             });
+            
         }
     })));
 };

@@ -2,15 +2,16 @@ var error = require("../model/error");
 var async = require("async");
 
 var extractKeysMapping = {
-    "ios":["branch","exportType","taskId","scheme"],
-    "android":["branch","taskId"]
+    "ios":["branch","exportType","scheme"],
+    "android":["branch"]
 };
 
-function extractParams(appType,buildConfig,callback){
+function extractParams(appType,taskId,buildConfig,callback){
     
     async.waterfall([
         (_cb)=>{
             var params = {};
+            params.taskId = taskId;
             var keys = extractKeysMapping[appType];
             for(var i = 0;i<keys.length;i++){
                 var k = keys[i];
@@ -20,7 +21,7 @@ function extractParams(appType,buildConfig,callback){
                     params[k] = buildConfig[k];
                 }
             }
-            _cb();
+            _cb(null,params);
         }
     ],callback);
 

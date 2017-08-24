@@ -1,7 +1,28 @@
 var build = require("../data/build");
 var async = require("async");
 var error = require("./error");
+var _ = require("lodash");
 
+var numberConvertKeys = [
+    "loginType",
+    "registerSupport",
+    "changePwSupport",
+    "modifyUserInfoSupport",
+    "cloudTableLoginSupport",
+    "itunesScoreSupport"
+];
+
+function convertConfig (config){
+    var params = {};
+    _.forEach(config,(val,key)=>{
+        if(numberConvertKeys.indexOf(key)>=0&&!isNaN(Number(val))){
+            params[key] = Number(val);
+        }else{
+            params[key] = val;
+        }
+    });
+    return params;
+}
 exports.build = function (companyId,appType,config,callback){
     async.waterfall(
         [
@@ -9,7 +30,7 @@ exports.build = function (companyId,appType,config,callback){
                 checkStatus(companyId,appType,_cb);
             },
             (_cb)=>{
-                build.buildApp(companyId,appType,config,_cb);
+                build.buildApp(companyId,appType,convertConfig(config),_cb);
             }
         ],
         callback

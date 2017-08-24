@@ -12,7 +12,7 @@ program.version("1.0.0")
     .parse(process.argv);
     
 var taskId = program.taskId;
-taskId = "7ac742f088a511e78b20a960e56dfced";
+taskId = "dbf015f088a711e787888133dcc0fc84";
 if(!taskId){
     errorHandler("taskId can not be null");
 }

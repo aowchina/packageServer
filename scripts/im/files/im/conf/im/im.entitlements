@@ -6,7 +6,7 @@
     <string>development</string>
     <key>com.apple.security.application-groups</key>
     <array>
-      <string>group.tongren.com.IMShareExtension</string>
+      <string>com.tongren.im.Test.IMAppStoreShareExtension</string>
     </array>
   </dict>
 </plist>

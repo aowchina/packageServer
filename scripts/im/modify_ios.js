@@ -22,7 +22,7 @@ function modify(buildInfo,callback){
                 modifyEntitlements(buildInfo,path.join(workspace,imConf.entitlementsPath),_cb);
             },
             (_cb)=>{
-                modifyPlist(buildInfo,path.join(workspace,imConf.shareGroupInfoPlistPath),_cb);
+                modifySharePlist(buildInfo,path.join(workspace,imConf.shareGroupInfoPlistPath),_cb);
             },
             (_cb)=>{
                 modifyEntitlements(buildInfo,path.join(workspace,imConf.shareGroupEntitlementsPath),_cb);
@@ -40,6 +40,24 @@ function modifyPlist(buildInfo,fpath,callback){
         conf["CFBundleVersion"] = buildConfig.buildVersion;
         conf["CFBundleShortVersionString"] = buildConfig.version;
         conf["CFBundleIdentifier"] = buildConfig.bundleId;
+        conf["CFBundleDisplayName"] = buildConfig.appName;
+        var str = plist.build(conf);
+        fs.writeFileSync(fpath,str,"utf8");
+        callback(null);
+    } catch (error) {
+        callback(error);
+    }
+}
+
+function modifySharePlist(buildInfo,fpath,callback){
+    try {
+        var conf = plist.parse(fs.readFileSync(fpath,"utf8"));
+        var buildConfig = JSON.parse(buildInfo.buildConfig);
+        conf["CFBundleName"] = buildConfig.appName;
+        conf["CFBundleVersion"] = buildConfig.buildVersion;
+        conf["CFBundleShortVersionString"] = buildConfig.version;
+        conf["CFBundleIdentifier"] = buildConfig.shareGroupBundleId;
+        conf["CFBundleDisplayName"] = buildConfig.appName;
         var str = plist.build(conf);
         fs.writeFileSync(fpath,str,"utf8");
         callback(null);

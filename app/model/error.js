@@ -11,7 +11,8 @@ var  ErrorCode ={
     ParamError:1007,
     JenkinsError:1008,
     BuildingExists:1009,
-    BuildingNotExists:1010
+    BuildingNotExists:1010,
+    ExtractParamsError:1011
 }; 
 setError(ErrorCode.PasswordWrong,"密码错误");
 setError(ErrorCode.NotAddmin,"请使用admin账户");
@@ -24,6 +25,8 @@ setError(ErrorCode.ParamError,"参数错误");
 setError(ErrorCode.JenkinsError,"jenkins错误");
 setError(ErrorCode.BuildingExists,"已经存在正在打包的进程");
 setError(ErrorCode.BuildingNotExists,"编译任务不存在");
+setError(ErrorCode.ExtractParamsError,"参数化编译缺少参数");
+
 
 function setError(code,errorInfo){
     errorMap[code] = errorInfo;

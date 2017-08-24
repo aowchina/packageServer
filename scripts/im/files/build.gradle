@@ -1,4 +1,9 @@
-ext {    
-    applicationId = "com.tongren.im"
-    version = "1.9.1"
+ext {
+    app_name = '伙伴畅聊'
+    app_id = 'com.tongren.im'
+    jpush_channel = 'tongren'
+    jpush_appkey = 'f1cf0bb6f3e201a929f4bd20'
+    amap_key = '9246654fb95055ffdb7f027b49f89db5'
+    version_code = 2937
+    version_name = '1.9.1'
 }

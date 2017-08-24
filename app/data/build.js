@@ -5,7 +5,7 @@ var error = require("../model/error");
 var jenkinsConfig = require("../config/jenkins");
 var uuid = require("../model/uuid");
 var async = require("async");
-
+var buildWithParams = require("./buildWithParams");
 
 var jenkinsHelper = new (require("./jenkinsHelper"))(jenkinsConfig.username,jenkinsConfig.token,jenkinsConfig.password,jenkinsConfig.host,jenkinsConfig.port);
 
@@ -91,7 +91,8 @@ exports.buildApp = function(companyId,appType,buildConfig,callback){
         if(err){
             callback(err);
         }else{
-            jenkinsHelper.build(JobMapping[appType],{taskId:taskId},(err,result)=>{
+            var params = buildWithParams(appType,buildConfig);
+            jenkinsHelper.build(JobMapping[appType],params,(err,result)=>{
                 if(err){
                     updateQueueIdAndStatus(taskId,0,BuildStatus.Error,callback);
                 }else{
@@ -101,6 +102,8 @@ exports.buildApp = function(companyId,appType,buildConfig,callback){
         }
     })));
 };
+
+
 
 function updateQueueIdAndStatus(taskId,queueId,status,callback){
     var sql = util.format(SQL.UPDATE_QUEUE_ID,queueId,status,taskId);

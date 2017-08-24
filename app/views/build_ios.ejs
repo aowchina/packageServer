@@ -28,15 +28,17 @@
     <% var branch = buildConfig.branch||"develop" %>
     <% var scheme = buildConfig.scheme||"im" %>
     <% var exportType = buildConfig.exportType||"ad-hoc" %>
-    <% var shareGroupBundleId = buildConfig.shareGroupBundleId||"group.tongren.com.IMShareExtension" %>
-
+    <% var shareGroupBundleId = buildConfig.shareGroupBundleId||"com.tongren.im.Test.IMAppStoreShareExtension" %>
+    <% var appShareGroupId= buildConfig.appShareGroupId||"group.tongren.com.IMShareExtension" %>
+    
     <form name="package" method="post" action="/build/ios/<%=company.companyId%>"> 
         <!--app名称-->
         app名称:<input type="text"  name="appName" value="<%=appName%>"/> </br>
         app ID:<input type="text" name="bundleId" value="<%=bundleId%>"/> </br>
         app版本号:<input type="text" name="version" value="<%=version%>"/> </br>
         app build号:<input type="text" name="buildVersion" value="<%=buildVersion%>"/> </br>
-        share App ID:<input type="text" name="shareGroupBundleId" value="<%=shareGroupBundleId%>"/> </br>
+        子共享应用Id:<input type="text" name="shareGroupBundleId" value="<%=shareGroupBundleId%>"/> </br>
+        子共享应用组groupId:<input type="text" name="appShareGroupId" value="<%=appShareGroupId%>"/> </br>
 
         代码git分支:
         <%var branchDevelop = branch=="develop"?"checked":"";%>

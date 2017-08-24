@@ -70,7 +70,7 @@ function modifyEntitlements(buildInfo,fpath,callback){
     try {
         var conf = plist.parse(fs.readFileSync(fpath,"utf8"));
         var buildConfig = JSON.parse(buildInfo.buildConfig);
-        conf["com.apple.security.application-groups"] = [buildConfig.shareGroupBundleId];
+        conf["com.apple.security.application-groups"] = [buildConfig.appShareGroupId];
         var str = plist.build(conf);
         fs.writeFileSync(fpath,str,"utf8");
         callback(null);

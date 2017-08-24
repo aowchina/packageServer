@@ -7,12 +7,19 @@ var logger = require("../../app/logger").logger;
 var modify_ios = require("./modify_ios");
 var modify_android = require("./modify_android");
 
-program.version("1.0.0").option("-t","--taskId","task id for build").parse(process.argv);
+program.version("1.0.0")
+    .option("-t --taskId [type]","task id for build")
+    .parse(process.argv);
+    
 var taskId = program.taskId;
-taskId = "cc99e9c087ec11e79433bf0b1f184102";
+if(!taskId){
+    errorHandler("taskId can not be null");
+}
+// taskId = "cc99e9c087ec11e79433bf0b1f184102";
+logger.debug("taskId =",taskId);
 
 var funcMapping = {
-    "ios":modify_android,
+    "ios":modify_ios,
     "android":modify_android
 };
 
@@ -34,17 +41,14 @@ async.waterfall(
         }
     ],
     (err,_build)=>{
-        
         if(err){
-            logger.error(err);
-            process.exit(-1);
+            errorHandler(err);
         }else{
             var func = funcMapping[_build.appType];
             
             func(_build,(err)=>{
                 if(err){
-                    logger.error(err);
-                    process.exit(-1);
+                    errorHandler(err);
                 }else{
                     logger.info("modify conf success");
                     process.exit(0);
@@ -54,6 +58,9 @@ async.waterfall(
     }
 );
 
-
+function errorHandler(err){
+    logger.error(err);
+    process.exit(-1);
+}
 
 

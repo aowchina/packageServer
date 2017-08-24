@@ -1,0 +1,4 @@
+ext {    
+    applicationId = "com.tongren.im"
+    version = "1.9.1"
+}

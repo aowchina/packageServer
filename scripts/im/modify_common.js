@@ -15,7 +15,7 @@ function modify(buildInfo,filepath,callback){
                 conf[underline] = val;
             }
         });
-        fs.writeFileSync(fpath,JSON.stringify(conf),"utf8");
+        fs.writeFileSync(fpath,JSON.stringify(conf,null,4),"utf8");
         callback(null);
     } catch (error) {
         callback(error);

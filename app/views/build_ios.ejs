@@ -30,7 +30,8 @@
     <% var exportType = buildConfig.exportType||"ad-hoc" %>
     <% var shareGroupBundleId = buildConfig.shareGroupBundleId||"com.tongren.im.Test.IMAppStoreShareExtension" %>
     <% var appShareGroupId= buildConfig.appShareGroupId||"group.tongren.com.IMShareExtension" %>
-    
+    <% var firToken= buildConfig.firToken||"e0624c164bc968ec432b748494402b03" %>
+
     <form name="package" method="post" action="/build/ios/<%=company.companyId%>"> 
         <!--app名称-->
         app名称:<input type="text"  name="appName" value="<%=appName%>"/> </br>
@@ -60,6 +61,8 @@
         <input type="radio" <%=exportTypeAdhoc%> name="exportType" value="ad-hoc" />ad-hoc可以安装 用于预发布
         <input type="radio" <%=exportTypeAppstore%> name="exportType" value="app-store" />用于上传AppStore
         </br>
+
+        fir Token 填写token上传到对应用户的fir:<input type="text" name="firToken" value="<%=firToken%>"/> </br>
 
 
         登录方式:

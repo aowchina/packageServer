@@ -12,7 +12,7 @@ var conf = {
         shareGroupInfoPlistPath:"ShareExtension/Info_AppStore.plist",
         shareGroupEntitlementsPath:"ShareExtension/ShareExtension_AppStore.plist",
     },
-    androidConfigPath:"files/android_conf.json",
-    androidGradlePaty:"files/build.gradle"
+    androidConfigPath:"app/src/main/assets/pack_config.json",
+    androidGradlePaty:"pack_config.gradle"
 };
 module.exports = conf;

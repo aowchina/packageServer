@@ -7,6 +7,93 @@
     <title>打包平台</title>
 </head>
 <body>
-    
+    <p2>公司:<%=company.companyName%>  android打包</p2>
+    <%{%>
+    <% var buildConfig = lastBuild.buildConfig?JSON.parse(lastBuild.buildConfig):{}%>
+    <% var appName = lastBuild.appName||"伙伴畅聊";var bundleId = lastBuild.bundleId||"com.tongren.im";var version = lastBuild.version||"";var buildVersion = lastBuild.buildVersion||""; %>
+    <% var loginType = buildConfig.loginType||0; %>
+    <% var jpushAppkey=buildConfig.jpushAppkey||"f1cf0bb6f3e201a929f4bd20"; %>
+    <% var jpushChannel = buildConfig.jpushChannel||"tongren"; %>
+    <% var amapKey= buildConfig.amapKey||"9246654fb95055ffdb7f027b49f89db5" %>
+    <% var wechatAppId = buildConfig.wechatAppId||"wx8d0dad770ebaf409" %>
+    <% var registerSupport = buildConfig.registerSupport||1 %>
+    <% var changePwSupport = buildConfig.changePwSupport||1 %>
+    <% var modifyUserInfoSupport = buildConfig.modifyUserInfoSupport||1 %>
+    <% var cloudTableLoginSupport = buildConfig.cloudTableLoginSupport||1 %>
+    <% var copyright= buildConfig.copyright||"" %>
+    <% var versionUpdateInfo = buildConfig.versionUpdateInfo||"" %>
+    <% var branch = buildConfig.branch||"develop" %>
+    <% var exportType = buildConfig.exportType||"debug" %>
+    <% var firToken= buildConfig.firToken||"e0624c164bc968ec432b748494402b03" %>
+
+    <form name="package" method="post" action="/build/android/<%=company.companyId%>"> 
+        <!--app名称-->
+        app名称:<input type="text"  name="appName" value="<%=appName%>"/> </br>
+        app ID:<input type="text" name="bundleId" value="<%=bundleId%>"/> </br>
+        app版本号:<input type="text" name="version" value="<%=version%>"/> </br>
+        app build号:<input type="text" name="buildVersion" value="<%=buildVersion%>"/> </br>
+
+        代码git分支:
+        <%var branchDevelop = branch=="develop"?"checked":"";%>
+        <%var branchMaster = branch=="master"?"checked":""%>
+        <input type="radio" <%=branchDevelop%> name="branch" value="develop" %> />develop
+        <input type="radio" <%=branchMaster%> name="branch" value="master" />master
+        </br>
+
+        导出版本:
+        <%var exportTypeDebug = exportType=="debug"?"checked":"";%>
+        <%var exportTypeRelease = exportType=="release"?"checked":""%>
+        <input type="radio" <%=exportTypeDebug%> name="exportType" value="debug" />测试服
+        <input type="radio" <%=exportTypeRelease%> name="exportType" value="release" />正式服
+        </br>
+
+        fir Token 填写token上传到对应用户的fir:<input type="text" name="firToken" value="<%=firToken%>"/> </br>
+
+        登录方式:
+        <%var loginTypeChecked = loginType=="0"?"checked":"";%>
+        <%var loginTypeThirdChecked = loginType=="1"?"checked":""%>
+        <input type="radio" <%=loginTypeChecked%> name="loginType" value="0" %> />畅聊登录
+        <input type="radio" <%=loginTypeThirdChecked%> name="loginType" value="1" />第三方登录
+        </br>
+        极光推送Id:<input type="text" name="jpushAppkey" value="<%=jpushAppkey%>"></br>
+        极光推送渠道:<input type="text" name="jpushChannel" value="<%=jpushChannel%>"></br>
+        高德地图Key:<input type="text" name="amapKey" value="<%=amapKey%>"></br>
+        微信分享Key:<input type="text" name="wechatAppId" value="<%=wechatAppId%>"></br>
+        是否支持注册:
+        <%var registerSupportChecked = registerSupport=="1"?"checked":"";%>
+        <%var registerNotSupportChecked = registerSupport=="0"?"checked":""%>
+        <input type="radio" <%=registerSupportChecked%> name="registerSupport" value="1" %> />支持
+        <input type="radio" <%=registerNotSupportChecked%> name="registerSupport" value="0" />不支持
+        </br>
+
+        是否支持修改密码:
+        <%var changePwSupportChecked = changePwSupport=="1"?"checked":"";%>
+        <%var changePwNotSupportChecked = changePwSupport=="0"?"checked":""%>
+        <input type="radio" <%=changePwSupportChecked%> name="changePwSupport" value="1" %> />支持
+        <input type="radio" <%=changePwNotSupportChecked%> name="changePwSupport" value="0" />不支持
+        </br>
+
+        是否支持修改个人信息:
+        <%var modifyUserInfoSupportChecked = modifyUserInfoSupport=="1"?"checked":"";%>
+        <%var modifyUserInfoNotSupportChecked = modifyUserInfoSupport=="0"?"checked":""%>
+        <input type="radio" <%=modifyUserInfoSupportChecked%> name="modifyUserInfoSupport" value="1" %> />支持
+        <input type="radio" <%=modifyUserInfoNotSupportChecked%> name="modifyUserInfoSupport" value="0" />不支持
+        </br>
+
+        是否支持云表格登录
+        <%var cloudTableLoginSupportChecked = cloudTableLoginSupport=="1"?"checked":"";%>
+        <%var cloudTableLoginNotSupportChecked = cloudTableLoginSupport=="0"?"checked":""%>
+        <input type="radio" <%=modifyUserInfoSupportChecked%> name="cloudTableLoginSupport" value="1" %> />支持
+        <input type="radio" <%=modifyUserInfoNotSupportChecked%> name="cloudTableLoginSupport" value="0" />不支持
+        </br>
+
+        版本更新介绍:
+        <textarea name="versionUpdateInfo" placeholder="更新内容 现在还不支持..."></textarea>
+        </br>
+        </br>
+        <input type="submit" value="开始打包"> 
+
+    </form>
+    <%}%>
 </body>
 </html>

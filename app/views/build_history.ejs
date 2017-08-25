@@ -12,11 +12,14 @@
     <%if(builds.length) {%> 
         <ul>
             <%builds.forEach(function(build){%>
+                <%var buildConfig = JSON.parse(build.buildConfig)%>
                 <li>
                     <label>版本：<%=build.appType%></label>
                     <label>应用名称：<%=build.appName%></label>
                     <label>bundleId：<%=build.bundleId%></label>
                     <label>version：<%=build.version%></label>
+                    <label>buildVersion：<%=build.buildVersion%></label>
+                    <label>状态：<%=build.status%></label>
                     <a href="/build/detail/<%=build.appType%>/<%=build.taskId%>">查看详情</a>
                 </li>
             <%})%>

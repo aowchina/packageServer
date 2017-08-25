@@ -2,8 +2,8 @@ var error = require("../model/error");
 var async = require("async");
 
 var extractKeysMapping = {
-    "ios":["branch","exportType","scheme","version","buildVersion"],
-    "android":["branch","exportType","version","buildVersion"]
+    "ios":["branch","exportType","firToken","scheme","version","buildVersion"],
+    "android":["branch","exportType","version","buildVersion","firToken"]
 };
 
 function extractParams(appType,taskId,buildConfig,callback){

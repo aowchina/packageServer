@@ -74,6 +74,7 @@ var SQL = {
     )charset=utf8",
     INSERT:"insert into build(taskId,appType,appName,companyId,version,buildVersion,bundleId,buildConfig,status,queueId,startTimestamp) values (?,?,?,?,?,?,?,?,?,?,?)",
     UPDATE_QUEUE_ID:"update build set queueId=%d,status='%s' where taskId='%s' ",
+    UPDATE_STATUS:"update build set status='%s' where taskId='%s' ",
     SELECT:"select * from build where companyId='%s' and appType='%s' and status in('%s','%s')",
     SELECT_TASKID:"select * from build where taskId='%s'",
     SELECT_ALL_TYPE:"select * from build where companyId='%s' and appType='%s' order by id desc",
@@ -254,6 +255,11 @@ exports.deleteBuild = function(taskId,callback){
         }
     });
     var sql = util.format(SQL.DELETE_BUILD,taskId);
+    query(sql,callback);
+};
+
+exports.updateBuildStatus = function(taskId,status,callback){
+    var sql = util.format(SQL.UPDATE_STATUS,status,taskId);
     query(sql,callback);
 };
 

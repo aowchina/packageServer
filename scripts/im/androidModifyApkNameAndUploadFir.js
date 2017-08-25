@@ -13,12 +13,12 @@ program.version("1.0.0")
 
 
 var taskId = program.taskId;
-taskId = "a467e690896e11e781150b45fa086aa6";
+// taskId = "a467e690896e11e781150b45fa086aa6";
 if(!taskId){
     errorHandler("taskId can not be null");
 }
 var workplace = program.workplace;
-workplace = "/Users/qizhang/Workplace/huoban/server/packageServer/scripts/im/files";
+// workplace = "/Users/qizhang/Workplace/huoban/server/packageServer/scripts/im/files";
 if(!workplace){
     errorHandler("workplace can not be null");
 }

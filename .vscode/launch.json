@@ -8,10 +8,10 @@
             "name": "app",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/app/app.js"
+            // "program": "${workspaceRoot}/app/app.js"
             // "program": "${workspaceRoot}/app/initData/initmysql.js",
             // "program": "${workspaceRoot}/app/tests/build.js"
-            // "program" : "${workspaceRoot}/scripts/im/modify.js"
+            "program" : "${workspaceRoot}/scripts/im/modify.js"
         }
     ]
 }

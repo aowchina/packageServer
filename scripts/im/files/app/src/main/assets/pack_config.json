@@ -1,13 +1,13 @@
 {
-  "app_name":"伙伴畅聊",
-  "login_type":0,
-  "company_id":"",
-  "wechat_app_id":"wx8d0dad770ebaf409",
-  "register_support":1,
-  "change_pw_support":1,
-  "modify_user_info_support":1,
-  "cloud_table_login_support":1,
-  "about_url":"https://im.tongren.com/license.html",
-  "copyright":"Copyright © 2016–2017 huobanim.com，\n All Rights Reserved.",
-  "version_update_info_url":"https://im.tongren.com/version/feature.html"
+    "app_name": "伙伴畅聊",
+    "login_type": 0,
+    "company_id": "1",
+    "wechat_app_id": "wx8d0dad770ebaf409",
+    "register_support": 1,
+    "change_pw_support": 1,
+    "modify_user_info_support": 1,
+    "cloud_table_login_support": 1,
+    "about_url": "https://im.tongren.com/license.html",
+    "copyright": "Copyright © 2016–2017 huobanim.com，\n All Rights Reserved.",
+    "version_update_info_url": "https://im.tongren.com/version/feature.html"
 }

@@ -13,16 +13,18 @@ program.version("1.0.0")
     .parse(process.argv);
     
 var taskId = program.taskId;
-// taskId = "dbf015f088a711e787888133dcc0fc84";
+// taskId = "28a72720895811e7a37a0b74f7dd6afc";
+var workspace = program.workspace;
+// workspace = "/Users/qizhang/Workplace/huoban/server/packageServer/scripts/im/files";
 if(!taskId){
     errorHandler("taskId can not be null");
 }
 
-if(!program.workspace){
+if(!workspace){
     errorHandler("workspace for job be not be null");
 }
 
-global.WORKSPACE = program.workspace;
+global.WORKSPACE = workspace;
 
 logger.debug("taskId =",taskId);
 

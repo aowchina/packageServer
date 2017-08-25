@@ -29,13 +29,13 @@ function modifyGradle(buildInfo, fpath, callback) {
         modifyHash.app_id = buildConfig.bundleId;
         modifyHash.version_code = parseInt(buildConfig.buildVersion);
         modifyHash.version_name = buildConfig.version;
-
+        
         var str = "";
         var modifyLine = (line) => {
             var modifyLine = line;
             _.forEach(modifyHash, (val, key) => {
                 var ukey = convertCamelToUnderline(key);
-                if (modifyLine.indexOf(ukey) >= 0) {
+                if (modifyLine.indexOf(ukey+" =") >= 0) {
                     var value = val;
                     if(typeof val == "string"){
                         value = "\""+val+"\"";

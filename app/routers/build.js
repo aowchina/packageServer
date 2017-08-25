@@ -102,7 +102,7 @@ router.get("/build/delete/:type/:taskId", (req, res) => {
             if (err) {
                 res.redirect("/error/" + err.errorInfo);
             } else {
-                var path = util.format("/build/history/%s/%s", type, companyId);
+                var path = util.format("/build/form/%s/%s", type, companyId);
                 res.redirect(path);
             }
         }

@@ -10,12 +10,12 @@ var upload = require("./uploadFir");
 program.version("1.0.0")
     .option("-t --taskId [type]", "task id for build")
     .option("-w --workplace [type]", "workplace  for android")
-    .option("-f --firtoken [type]", "firtoken")
+    .option("-f --firToken [type]", "firToken")
     .parse(process.argv);
 
 
 var taskId = program.taskId;
-// taskId = "a467e690896e11e781150b45fa086aa6";
+// taskId = "e6ba1330897611e78e25b531aa252265";
 if(!taskId){
     errorHandler("taskId can not be null");
 }
@@ -25,8 +25,9 @@ if(!workplace){
     errorHandler("workplace can not be null");
 }
 
-var firtoken = program.firtoken;
-if(!firtoken){
+var firToken = program.firToken;
+// firToken = "e0624c164bc968ec432b748494402b03";
+if(!firToken){
     errorHandler("firtoken can not be null");
 }
 
@@ -51,7 +52,7 @@ async.waterfall(
             fs.rename(fpath,rename,_cb);
         },
         (_cb)=>{
-            upload(rename,firtoken,_cb);
+            upload(rename,firToken,_cb);
         }
     ]
     ,

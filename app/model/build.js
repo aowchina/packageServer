@@ -67,3 +67,7 @@ exports.getBuildWithTaskId = function(taskId,callback){
 exports.stopBuild = function (taskId,callback){
     build.stopBuild(taskId,callback);
 };
+
+exports.deleteBuild = function (taskId,callback){
+    build.deleteBuild(taskId,callback);
+};

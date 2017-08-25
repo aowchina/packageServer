@@ -22,8 +22,8 @@
     <% if(build.status=="waiting"||build.status=="building") {%>
         <a href="/build/stop/<%=build.appType%>/<%-build.taskId%>">停止打包</a>
     <% }%>
-
-    
+    <br>
+    <a href="/build/delete/<%=build.appType%>/<%-build.taskId%>">异常删除，重新打包</a>
     
 
 </body>

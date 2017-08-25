@@ -6,6 +6,7 @@ var jenkinsConfig = require("../config/jenkins");
 var uuid = require("../model/uuid");
 var async = require("async");
 var buildWithParams = require("./buildWithParams");
+var logger = require("../logger").logger;
 
 var jenkinsHelper = new (require("./jenkinsHelper"))(jenkinsConfig.username,jenkinsConfig.token,jenkinsConfig.password,jenkinsConfig.host,jenkinsConfig.port);
 
@@ -77,6 +78,7 @@ var SQL = {
     SELECT_TASKID:"select * from build where taskId='%s'",
     SELECT_ALL_TYPE:"select * from build where companyId='%s' and appType='%s' order by id desc",
     SELECT_LAST:"select * from build where companyId='%s' and appType='%s' order by id desc limit 1 ",
+    DELETE_BUILD:"delete from build where taskId='%s'"
 };
 
 exports.appType = AppType;
@@ -216,7 +218,8 @@ exports.getAllBuilds = function(companyId,appType,callback) {
 /**
  * 取消打包
 */
-exports.stopBuild = function(taskId,callback){
+
+function stopBuild(taskId,callback){
     var _buildData = null;
     async.waterfall(
         [
@@ -240,6 +243,18 @@ exports.stopBuild = function(taskId,callback){
         callback
     );
     
+}
+
+exports.stopBuild = stopBuild;
+
+exports.deleteBuild = function(taskId,callback){
+    stopBuild(taskId,(err)=>{
+        if(err){
+            logger.error(err);
+        }
+    });
+    var sql = util.format(SQL.DELETE_BUILD,taskId);
+    query(sql,callback);
 };
 
 exports.initBuild = function(callback) {

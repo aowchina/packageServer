@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>创建服务号</title>
+</head>
+<body>
+    创建服务号
+    <form method="POST" action="/robot/create">
+        服务号昵称:<input type="text" name="nickName" /> </br>
+        账号:<input type="text" name="account"> </br>
+        简介:<textarea name="intro" id="" cols="30" rows="10" placeholder="简介"></textarea></br>
+        服务号类型
+        <input type="radio"  checked name="authType" value="1" />企业
+        <input type="radio"  name="authType" value="2" />个人
+        </br>
+        创建者Id:<input type="text" name="authid" placeholder="企业Id或者个人Id"> </br>
+        创建人信息:<input type="text" name="authInfo"> </br>
+        粉丝类型<br>
+        所有人可关注:
+        <input type="radio"  checked name="isAll" value="1" />是
+        <input type="radio"  name="isAll" value="0" />否
+        </br>
+        关注的企业:<textarea name="companys" id="" cols="30" rows="10" placeholder=",隔开填写ID列表"></textarea></br>
+        关注的用户:<textarea name="users" id="" cols="30" rows="10" placeholder=",隔开填写用户列表)"></textarea></br>
+
+        <input type="submit" value="创建"> 
+    </form>
+</body>
+</html>

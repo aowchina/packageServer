@@ -8,7 +8,7 @@
 </head>
 <body>
     创建服务号
-    <form method="POST" action="/robot/create">
+    <form method="POST" enctype="multipart/form-data" action="/robot/create">
         服务号昵称:<input type="text" name="nickName" /> </br>
         账号:<input type="text" name="account"> </br>
         简介:<textarea name="intro" id="" cols="30" rows="10" placeholder="简介"></textarea></br>
@@ -26,6 +26,8 @@
         关注的企业:<textarea name="companys" id="" cols="30" rows="10" placeholder=",隔开填写ID列表"></textarea></br>
         关注的用户:<textarea name="users" id="" cols="30" rows="10" placeholder=",隔开填写用户列表)"></textarea></br>
 
+        上传图标:<input type="file" accept="image/png,image/jpg,image/jpeg" title="选择图片" name="icon" />
+        </br>
         <input type="submit" value="创建"> 
     </form>
 </body>

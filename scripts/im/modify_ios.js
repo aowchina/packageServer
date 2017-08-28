@@ -13,7 +13,7 @@ function modify(buildInfo,callback){
     async.waterfall(
         [
             (_cb)=>{
-                modify_common(buildInfo,path.join(workspace,conf.iosConfigPath),_cb);
+                modify_common(buildInfo,path.join(workspace,imConf.configPath),_cb);
             },
             (_cb)=>{
                 modifyPlist(buildInfo,path.join(workspace,imConf.infoPlistPath),_cb);

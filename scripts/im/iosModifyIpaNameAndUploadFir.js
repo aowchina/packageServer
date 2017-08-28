@@ -35,6 +35,7 @@ var defaultAppName = "app.ipa";
 
 var apkDir = "build/";
 var rename = "";
+var buildConfig = null;
 async.waterfall(
     [
         (_cb)=>{
@@ -42,14 +43,19 @@ async.waterfall(
         },
         (_build,_cb)=>{
             var date = new Date();
-            var buildConfig = JSON.parse(_build.buildConfig);
+            buildConfig = JSON.parse(_build.buildConfig);
             var fileNewName = buildConfig.exportType+"-"+[date.getHours(),date.getMinutes()].join(":")+".ipa";
             var fpath = path.join(workplace,apkDir,defaultAppName);
             rename  = path.join(workplace,apkDir,fileNewName);
             fs.rename(fpath,rename,_cb);
         },
         (_cb)=>{
-            upload(rename,firToken,_cb);
+            if(buildConfig.exportType=="app-store"){
+                logger.info("app store don't upload fir");
+                _cb(null);
+            }else{
+                upload(rename,firToken,_cb);
+            }
         }
     ]
     ,
@@ -57,7 +63,7 @@ async.waterfall(
         if(err){
             errorHandler(err);
         }else{
-            logger.info("iOS modify appName success and upload fir success");
+            logger.info("ios modify appName success and upload fir success");
             process.exit(0);
         }
     }

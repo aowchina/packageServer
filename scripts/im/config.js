@@ -9,7 +9,7 @@ var conf = {
     im_appstore:{
         configPath:"im/conf/appstore/pack_config.json",
         infoPlistPath:"im/conf/appstore/im.plist",
-        entitlementsPath:"im/conf/appstore/im.entitlements",
+        entitlementsPath:"im/conf/appstore/im_appstore.entitlements",
         shareGroupInfoPlistPath:"ShareExtension/Info_AppStore.plist",
         shareGroupEntitlementsPath:"ShareExtension/ShareExtension_AppStore.plist",
     },

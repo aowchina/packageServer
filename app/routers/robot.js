@@ -2,11 +2,30 @@ var router = require("express").Router();
 var robot = require("../model/robot");
 var formparse = require("../tools/formparse");
 var config = require("../config/robot");
+var async = require("async");
 /**
  * 获取机器人列表
 */
 router.get("/robot/list",(req,res)=>{
-    
+    var list = [];
+    async.waterfall(
+        [
+            (_cb)=>{
+                robot.getRobotList(config.testUrl,_cb);
+            },
+            (_data,_cb)=>{
+                list = _data;
+                _cb();
+            }
+        ],
+        (err)=>{
+            if(err){
+                res.redirect("/error/"+err);
+            }else{
+                
+            }
+        }
+    );
 });
 
 /**

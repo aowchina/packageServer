@@ -3,6 +3,6 @@ module.exports = {
         name: "app",
         script: "./app/app.js",
         instances: 0,
-        exec_mode: "cluster"
+        watch:true
     }]
 };

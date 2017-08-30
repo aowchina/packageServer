@@ -56,6 +56,8 @@ var JobMapping = {
     "android":Job_Android
 };
 
+exports.JobMapping = JobMapping;
+
 var SQL = {
     CREATE:" create table if not exists \
     build(\

@@ -3,6 +3,9 @@ var async = require("async");
 var build = require("../model/build");
 var util = require("util");
 var company = require("../model/company");
+var buildDB = require("../data/build.js");
+var serverConf = require("../config/server.js");
+var jenkinsConf = require("../config/jenkins.js");
 
 router.get("/build/form/:type/:companyId", (req, res) => {
     var type = req.params.type;
@@ -59,11 +62,13 @@ router.get("/build/history/:type/:companyId", (req, res) => {
 
 router.get("/build/detail/:type/:taskId", (req, res) => {
     var taskId = req.params.taskId;
+    var type = req.params.type;
     build.getBuildWithTaskId(taskId, (err, _build) => {
         if (err) {
             res.redirect("/error/" + err.errorInfo);
         } else {
-            res.render("build_detail.ejs", { build: _build });
+            var url = "http://"+serverConf.host+":"+jenkinsConf.port+"/job/"+buildDB.JobMapping[type];
+            res.render("build_detail.ejs", { build: _build ,jenkinsUrl:url});
         }
     });
 });

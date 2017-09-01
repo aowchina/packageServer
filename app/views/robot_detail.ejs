@@ -7,7 +7,39 @@
     <title>服务号详情</title>
 </head>
 <body>
+    服务号详情
+    <div>服务号昵称:<%=robot.baseInfo.nickName%></div>
+    <div>账号:<%=robot.baseInfo.account%></div>
+    <div>简介:<%=robot.baseInfo.intro%></div>
+    <% if(robot.serviceInfo.infoType==1) {%>
+        <label>服务号类型:企业<%=robot.baseInfo.intro%></label><br>
+    <% }else{ %>
+        <label>服务号类型:个人<%=robot.baseInfo.intro%></label><br>
+    <%} %>
     
+
+    粉丝类型:
+    <%var followers = JSON.parse(robot.serviceInfo.followers)%>
+    <%if(followers.isAll) {%>
+    <label>所有人可关注</label><br>
+    <%}else{%>
+    <label>非所有人可关注</label><br>
+    <%}%>
+    关注的企业:
+    <%if(followers.companys&&followers.companys.length>0) {%>
+    <%var companyIds = followers.companys.join(",");%>
+        <label><%=companyIds%></label><br>
+    <%}else{%>
+        <label>无</label><br>
+    <%}%>
+    
+    关注的用户:
+    <%if(followers.users&&followers.users.length>0) {%>
+    <%var userIds = followers.users.join(",")%>
+        <label><%=userIds%></label><br>
+    <%}else{%>
+        <label>无</label><br>
+    <%}%>
     
 
     <br><a href="javascript:history.back();">返回</a>

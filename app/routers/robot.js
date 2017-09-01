@@ -14,7 +14,7 @@ router.get("/robot/list",(req,res)=>{
                 robot.getRobotList(config.testUrl,_cb);
             },
             (_data,_cb)=>{
-                list = _data.robots;
+                list = _data;
                 _cb();
             }
         ],
@@ -82,7 +82,14 @@ router.post("/robot/create",(req,res)=>{
  * 查看服务号
 */
 router.get("/robot/detail/:robotId",(req,res)=>{
-    
+    var robotId = req.params.robotId;
+    robot.getRobotInfo(config.testUrl,robotId,(err,info)=>{
+        if(err){
+            res.redirect("/error/"+err);
+        }else{
+            res.render("robot_detail.ejs",{robot:info});
+        }
+    });
 });
 
 

@@ -1,10 +1,20 @@
 var request = require("request");
 exports.getRobotList = function(url,callback){
-    sendRequest(url,"backstage/robot/list",null,callback);
+    sendRequest(url,"backstage/robot/list",null,(err,body)=>{
+        if(err){
+            callback(err);
+        }else{
+            callback(null,body.robots);
+        }
+    });
 };
 
 exports.createRobot = function(url,robot,callback){
     sendRequest(url,"backstage/robot/create",robot,callback);
+};
+
+exports.getRobotInfo = function(url,robotId,callback){
+    sendRequest(url,"backstage/robot/item",{robotId:robotId},callback);
 };
 
 function sendRequest(url,path,data,callback){
@@ -20,13 +30,15 @@ function sendRequest(url,path,data,callback){
         body: JSON.stringify(data)
     };
     request(sendData,(err,res,stringBody)=>{
-        var data = JSON.parse(stringBody);
         if(err){
             callback(err);
-        }else if(data.err){
-            callback(data.err);
         }else{
-            callback(err,data.body);
+            var data = JSON.parse(stringBody);
+            if(data.err){
+                callback(data.err);
+            }else{
+                callback(err,data.body);
+            }
         }
     });
 }

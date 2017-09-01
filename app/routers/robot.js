@@ -14,7 +14,7 @@ router.get("/robot/list",(req,res)=>{
                 robot.getRobotList(config.testUrl,_cb);
             },
             (_data,_cb)=>{
-                list = _data;
+                list = _data.robots;
                 _cb();
             }
         ],
@@ -22,7 +22,7 @@ router.get("/robot/list",(req,res)=>{
             if(err){
                 res.redirect("/error/"+err);
             }else{
-                
+                res.render("robot_list.ejs",{robots:list});
             }
         }
     );
@@ -52,7 +52,22 @@ router.post("/robot/create",(req,res)=>{
                 users = body.users.split(",");
             }
             body.followers = JSON.stringify({isAll:isAll,companys:companys,users:users});
-            robot.createRobot(config.testUrl,body,(err)=>{
+
+            var robotInfo = {
+                baseInfo:{
+                    nickName:body.nickName,
+                    account:body.account,
+                    intro:body.intro
+                },
+                serviceInfo:{
+                    authType:body.authType,
+                    authid:body.authid,
+                    authInfo:body.authInfo,
+                    followers:body.followers
+                }
+            };
+
+            robot.createRobot(config.testUrl,robotInfo,(err)=>{
                 if(err){
                     res.redirect("/error/"+err);
                 }else{
@@ -63,6 +78,12 @@ router.post("/robot/create",(req,res)=>{
     });
 });
 
+/**
+ * 查看服务号
+*/
+router.get("/robot/detail/:robotId",(req,res)=>{
+    
+});
 
 
 module.exports = router;

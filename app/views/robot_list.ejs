@@ -4,10 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>服务号列表</title>
 </head>
 <body>
     机器人列表
+    <a href="/robot/create">创建服务号</input></a><div></div>
+
+    <%if(robots.length==0) {%> 
+        <a href="/robot/create" >没有服务号，请创建</a>
+    <%}%>
+
+    <%if(robots.length) {%> 
+        <ul>
+            <%robots.forEach(function(robot){%>
+                <li>
+                    <label>服务号名称：<%=robot.baseInfo.nickName%></label>
+                    <label>账号：<%=robot.baseInfo.account%></label>
+                    <a href="/robot/detail/:robotId">查看详情</a>
+                </li>
+            <%})%>
+        </ul>
+    <%}%>
     
+    <br><a href="javascript:history.back();">返回</a>
 </body>
 </html>

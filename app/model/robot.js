@@ -8,6 +8,9 @@ exports.createRobot = function(url,robot,callback){
 };
 
 function sendRequest(url,path,data,callback){
+    if(data==null){
+        data = {};
+    }
     var sendData = {
         method:"POST",
         url:url+"/"+path,
@@ -16,7 +19,14 @@ function sendRequest(url,path,data,callback){
         },
         body: JSON.stringify(data)
     };
-    request(sendData,(err,res,body)=>{
-        callback(err,body);
+    request(sendData,(err,res,stringBody)=>{
+        var data = JSON.parse(stringBody);
+        if(err){
+            callback(err);
+        }else if(data.err){
+            callback(data.err);
+        }else{
+            callback(err,data.body);
+        }
     });
 }
